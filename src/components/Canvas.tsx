@@ -7,7 +7,7 @@ import ReactFlow, {
 	Node,
 	Position,
 } from "reactflow";
-import LinkNode, { LinkData, PositionData } from "./LinkNode";
+import { P, match } from "ts-pattern";
 import {
 	CanvasData,
 	CanvasEdge,
@@ -15,7 +15,7 @@ import {
 	NodeSide,
 	NodeText,
 } from "volglass-backend";
-import { match, P } from "ts-pattern";
+import LinkNode, { LinkData, PositionData } from "./LinkNode";
 
 const Canvas = (canvas: CanvasData, readContent: (id: string) => FC) => () => {
 	const nodes = canvas.nodes.map(
@@ -91,8 +91,8 @@ const findTargetSide = (targetNode: string, edges: CanvasEdge[]) =>
 			edge.toNode === targetNode
 				? { position: convertSideData(edge.toSide), type: "target" }
 				: edge.fromNode === targetNode
-				? { position: convertSideData(edge.fromSide), type: "source" }
-				: null,
+				  ? { position: convertSideData(edge.fromSide), type: "source" }
+				  : null,
 		)
 		.filter((side) => side !== null)
 		.filter((side, i, array) => array.indexOf(side) === i)
